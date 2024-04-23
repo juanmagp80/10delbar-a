@@ -69,7 +69,7 @@ const NavBar = () => {
                             <Popover.Button
                                 className={`
                             ${open ? 'text-white' : 'text-white/90'}
-                            group inline-flex uppercase text-xl items-center rounded-md bg-gradient-to-r from-blau to-grana px-3 py-2 text-base font-medium hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}
+                            group inline-flex uppercase items-center rounded-md bg-gradient-to-r from-blau to-grana px-3 py-2 text-base font-medium hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}
                             >
                                 <span>Somos El 10 del Barça</span>
                                 <ChevronDownIcon
@@ -96,10 +96,10 @@ const NavBar = () => {
                                                     className="-m-3 flex items-center rounded-lg p-2 transition duration-250 ease-in-out hover:bg-gray-800 focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 cursor-default"
                                                 >
                                                     <div className="ml-4">
-                                                        <p className="text-sm font-medium text-xl text-white">
+                                                        <p className=" font-medium text-sm text-white">
                                                             {item.name}
                                                         </p>
-                                                        <p className="text-sm text-white">
+                                                        <p className="text-xs text-white">
                                                             {item.description}
                                                         </p>
                                                     </div>
