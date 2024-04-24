@@ -7,7 +7,7 @@ const NoticiaCard = ({ noticia }) => (
                 component="img"
                 alt={noticia.titulo}
                 height="140"
-                image={`http://localhost:1337${noticia.imagen.url}`}
+                image={`http://localhost:1337${noticia.imagen?.url}`}
                 title={noticia.titulo}
             />
             <CardContent>

@@ -9,7 +9,7 @@ const Noticias = () => {
         const fetchNoticias = async () => {
             const response = await axios.get('http://localhost:1337/api/noticias/');
             console.log(response.data);
-            setNoticias(response.data);
+            setNoticias(response.data.data);
         };
 
         fetchNoticias();
