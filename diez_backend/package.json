@@ -2,6 +2,7 @@
     "name": "10barca",
     "private": true,
     "version": "0.0.0",
+    "license": "MIT (Permisiva)",
     "type": "module",
     "scripts": {
         "dev": "vite",
