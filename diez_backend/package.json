@@ -1,0 +1,47 @@
+{
+    "name": "10barca",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@admin-bro/express": "^3.1.0",
+        "@admin-bro/sequelize": "^1.2.1",
+        "@headlessui/react": "^1.7.19",
+        "@heroicons/react": "^2.1.3",
+        "@material-tailwind/react": "^2.1.9",
+        "admin-bro": "^4.0.1",
+        "bcrypt": "^5.1.1",
+        "esbuild": "^0.19.11",
+        "express": "^4.19.2",
+        "express-admin": "^2.0.0",
+        "express-session": "^1.18.0",
+        "mysql2": "^3.9.7",
+        "passport": "^0.7.0",
+        "passport-local": "^1.0.0",
+        "pg": "^8.11.5",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "sequelize": "^6.37.3",
+        "sqlite3": "^5.1.7",
+        "strapi": "^3.6.0-beta.5"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.66",
+        "@types/react-dom": "^18.2.22",
+        "@vitejs/plugin-react": "^4.2.1",
+        "autoprefixer": "^10.4.19",
+        "eslint": "^8.57.0",
+        "eslint-plugin-react": "^7.34.1",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.6",
+        "postcss": "^8.4.38",
+        "tailwindcss": "^3.4.3",
+        "vite": "^5.2.0"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "appname": "Mi aplicación",
+    "db": {
+        "dialect": "mysql",
+        "username": "postgres",
+        "password": "1234",
+        "database": "postgre",
+        "host": "localhost"
+    }
+}
