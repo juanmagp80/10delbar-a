@@ -376,10 +376,9 @@ export interface ApiNoticiaNoticia extends Schema.CollectionType {
   attributes: {
     Titulo: Attribute.String;
     Descripcion: Attribute.Text;
-    Email: Attribute.Email;
-    Imagen: Attribute.Media;
-    nombreRedactor: Attribute.String;
+    imagen: Attribute.Media;
     fechaPublicacion: Attribute.Date;
+    Redactor: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

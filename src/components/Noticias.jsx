@@ -7,8 +7,12 @@ const Noticias = () => {
 
     useEffect(() => {
         const fetchNoticias = async () => {
-            const response = await axios.get('http://localhost:1337/api/noticias/');
-            console.log(response.data);
+
+            const defaultImageUrl = 'ruta/a/tu/imagen/por/defecto.jpg'; // Reemplaza esto con la ruta a tu imagen por defecto
+            const response = await axios.get('http://localhost:1337/api/noticias?populate=imagen');
+
+            const imageUrl = response.imagen && response.imagen.url ? `http://localhost:1337${response.imagen.url}` : defaultImageUrl;
+            console.log("ruta", response.data);
             setNoticias(response.data.data);
         };
 

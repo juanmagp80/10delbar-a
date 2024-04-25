@@ -1,5 +1,5 @@
 {
-  "name": "10-barcastrapi",
+  "name": "strapiback",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -11,10 +11,10 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@strapi/strapi": "4.23.1",
-    "@strapi/plugin-users-permissions": "4.23.1",
-    "@strapi/plugin-i18n": "4.23.1",
-    "@strapi/plugin-cloud": "4.23.1",
+    "@strapi/strapi": "4.24.0",
+    "@strapi/plugin-users-permissions": "4.24.0",
+    "@strapi/plugin-i18n": "4.24.0",
+    "@strapi/plugin-cloud": "4.24.0",
     "better-sqlite3": "8.6.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -25,7 +25,7 @@
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "1b6bc865-078c-4da8-a4ad-83a8420edd86"
+    "uuid": "09144106-01fc-4f06-9148-6222cd92f17c"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",

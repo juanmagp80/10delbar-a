@@ -18,12 +18,9 @@
     "Descripcion": {
       "type": "text"
     },
-    "Email": {
-      "type": "email"
-    },
-    "Imagen": {
+    "imagen": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "allowedTypes": [
         "images",
@@ -32,11 +29,11 @@
         "audios"
       ]
     },
-    "nombreRedactor": {
-      "type": "string"
-    },
     "fechaPublicacion": {
       "type": "date"
+    },
+    "Redactor": {
+      "type": "string"
     }
   }
 }
