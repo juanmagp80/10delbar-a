@@ -4,49 +4,59 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 const solutions = [
     {
-        name: 'Noticias del primer equipo',
+        name: 'Primer equipo',
         description: 'Toda la actualidad del primer equipo',
         href: '##',
+        icon: "../../public/fc_barcelona_footballteam_18015.png"
     },
     {
         name: 'Opinión y análisis',
         description: 'Análisis de los partidos y jugadores',
         href: '##',
+        icon: "./opinion.png"
     },
     {
         name: 'Barça Atletic',
         description: 'Toda la actualidad del filial',
         href: '##',
+        icon: "../../public/fc_barcelona_footballteam_18015.png"
     },
     {
         name: 'Baloncesto',
         description: 'Toda la actualidad del primer equipo de baloncesto',
         href: '##',
+        icon: "./baloncesto.png"
     },
     {
         name: 'Tv',
         description: 'Publicidad',
         href: '##',
+        icon: "./tv.png"
     },
     {
         name: 'Equipo',
         description: 'Equipo del 10 del Barça',
         href: '##',
+        icon: "./equipo.png"
     },
     {
         name: 'Contacto',
         description: 'Contacta con nosotros',
         href: '##',
+        icon: "./contacto.png"
     },
     {
         name: 'Futbol Sala',
         description: 'Toda la actualidad del primer equipo de futbol sala',
         href: '##',
+        icon: "./futbolsala.png"
     },
     {
         name: 'Femenino',
         description: 'Toda la actualidad del primer equipo femenino',
         href: '##',
+        icon: "./fc_barcelona_footballteam_18015.png"
+
     },
 
 
@@ -60,6 +70,8 @@ const NavBar = () => {
     const toggleDropdown = () => setIsOpen(!isOpen);
 
     return (
+
+
         <div className="absolute navbar flex justify-between items-center w-full h-36 z-10 bg-transparent">
             <div className="navbar-start flex" style={{ width: '30%' }}>
 
@@ -93,9 +105,11 @@ const NavBar = () => {
                                             {solutions.map((item) => (
                                                 <div
                                                     key={item.name}
+
                                                     className="-m-3 flex items-center rounded-lg p-2 transition duration-250 ease-in-out hover:bg-gray-800 focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 cursor-default"
                                                 >
                                                     <div className="ml-4">
+                                                        {item.icon && <img src={item.icon} alt={item.name} className="w-10 h-10" />}
                                                         <p className=" font-medium text-sm text-white">
                                                             {item.name}
                                                         </p>

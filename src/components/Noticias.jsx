@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import NoticiaCard from './NoticiaCard' // Asegúrate de tener un componente Card
+import NoticiaCard from './NoticiaCard'
+import NoticiasList from './NoticiaCard';// Asegúrate de tener un componente Card
+import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Noticias = () => {
     const [noticias, setNoticias] = useState([]);
@@ -8,10 +11,13 @@ const Noticias = () => {
     useEffect(() => {
         const fetchNoticias = async () => {
 
-            const defaultImageUrl = 'ruta/a/tu/imagen/por/defecto.jpg'; // Reemplaza esto con la ruta a tu imagen por defecto
             const response = await axios.get('http://localhost:1337/api/noticias?populate=imagen');
+            const noticias = response.data.data;
+            console.log("noticias", noticias);
+            const urlPrimeraImagen = noticias[0].attributes.imagen.data[0].attributes.url;
+            console.log("url", urlPrimeraImagen);
 
-            const imageUrl = response.imagen && response.imagen.url ? `http://localhost:1337${response.imagen.url}` : defaultImageUrl;
+
             console.log("ruta", response.data);
             setNoticias(response.data.data);
         };
@@ -21,10 +27,17 @@ const Noticias = () => {
 
     return (
         <div>
-            {Array.isArray(noticias) ? noticias.map((noticia) => (
-                <NoticiaCard key={noticia.id} noticia={noticia} />
-            )) : null}
 
+            {noticias.map((noticia) => (
+                <Link key={noticia.id} to={`/noticias/${noticia.id}`}>
+                    <div key={noticia.id}>
+                        <NoticiaCard noticia={noticia} />
+                    </div>
+                </Link>
+            ))}
+
+
+            <NoticiasList noticias={noticias} /> {/* Mover esto fuera del mapeo de noticias */}
         </div>
     );
 };
