@@ -10,7 +10,8 @@ const NoticiaCard = ({ noticia }) => {
 
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', padding: '20px', marginTop: '300px' }}>
+        <div className="flex-1 p-2 mt-10">
+
             <Card style={{ width: '300px', height: '500px', margin: '20px' }}>
                 <CardActionArea style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                     <CardMedia
@@ -20,6 +21,8 @@ const NoticiaCard = ({ noticia }) => {
                         image={imageUrl}
                         title={noticia.attributes?.Titulo}
                         className='object-cover h-100'
+                        style={{ objectFit: 'cover', height: '200px' }} // Establece un tamaño fijo para las imágenes
+
                     />
                     <CardContent className="bg-white" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flexGrow: 1 }}>
                         <Typography gutterBottom variant="h5" component="h2" className="mb-2 text-sm">
@@ -52,10 +55,18 @@ const NoticiasList = ({ noticias }) => {
     }
 
     return (
-        <div className='flex flex-wrap -mx-2'>
-            {noticias.map(noticia => (
-                <NoticiaCard key={noticia.id} noticia={noticia} />
-            ))}
+
+        <div className="flex relative justify-center items-center p-5 bg-center bg-repeat bg-cover"
+            style={{ backgroundImage: 'url("/noticiasfondo.jpg")', height: '80%', zIndex: 2, width: '80%', margin: '0 auto', top: '350px', borderRadius: '15px', boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)' }}>
+            <div className="flex flex-col text-xl font-just justify-center items-center w-full h-full bg-transparent">
+                <img src="/barcelona-white.png" alt="Noticias" className="mr-2 w-32" /> {/* Asegúrate de reemplazar "/ruta/a/tu/imagen.jpg" con la ruta real a tu imagen */}
+                <h1 className="text-5xl font-just text-white ">Noticias</h1>
+                <div className="grid grid-cols-3 gap-4 w-full h-full justify-items-center align-items-center">
+                    {noticias.map(noticia => (
+                        <NoticiaCard key={noticia.id} noticia={noticia} />
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };

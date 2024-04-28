@@ -1,80 +1,76 @@
 import { useState, Fragment } from 'react';
-import { Popover, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { Popover, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { Button } from '@mui/material';
 
 const solutions = [
     {
         name: 'Primer equipo',
         description: 'Toda la actualidad del primer equipo',
         href: '##',
-        icon: "../../public/fc_barcelona_footballteam_18015.png"
+        icon: "/fc_barcelona_footballteam_18015.png"
     },
     {
         name: 'Opinión y análisis',
         description: 'Análisis de los partidos y jugadores',
         href: '##',
-        icon: "./opinion.png"
+        icon: "/opinion.png"
     },
     {
         name: 'Barça Atletic',
         description: 'Toda la actualidad del filial',
         href: '##',
-        icon: "../../public/fc_barcelona_footballteam_18015.png"
+        icon: "/fc_barcelona_footballteam_18015.png"
     },
     {
         name: 'Baloncesto',
         description: 'Toda la actualidad del primer equipo de baloncesto',
         href: '##',
-        icon: "./baloncesto.png"
+        icon: "/baloncesto.png"
     },
     {
         name: 'Tv',
         description: 'Publicidad',
         href: '##',
-        icon: "./tv.png"
+        icon: "/tv.png"
     },
     {
         name: 'Equipo',
         description: 'Equipo del 10 del Barça',
         href: '##',
-        icon: "./equipo.png"
+        icon: "/equipo.png"
     },
     {
         name: 'Contacto',
         description: 'Contacta con nosotros',
         href: '##',
-        icon: "./contacto.png"
+        icon: "/contacto.png"
     },
     {
         name: 'Futbol Sala',
         description: 'Toda la actualidad del primer equipo de futbol sala',
         href: '##',
-        icon: "./futbolsala.png"
+        icon: "/futbolsala.png"
     },
     {
         name: 'Femenino',
         description: 'Toda la actualidad del primer equipo femenino',
         href: '##',
-        icon: "./fc_barcelona_footballteam_18015.png"
-
-    },
-
-
-
-
-]
+        icon: "/fc_barcelona_footballteam_18015.png"
+    }
+];
 
 const NavBar = () => {
+    const [isHovered1, setIsHovered1] = useState(false);
+    const [isHovered2, setIsHovered2] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [showVideo, setShowVideo] = useState(false);
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
     return (
-
-
-        <div className="absolute navbar flex justify-between items-center w-full h-36 z-10 bg-transparent">
+        <div className="absolute navbar flex justify-between items-center w-full h-40 z-10 bg-gradient-to-r from-blue-opaque to-red-opaque backdrop-filter backdrop-blur-lg shadow-lg p-4">
             <div className="navbar-start flex" style={{ width: '30%' }}>
-
                 <Popover className="relative ml-2 font-just uppercase">
                     {({ open }) => (
                         <>
@@ -83,7 +79,7 @@ const NavBar = () => {
                             ${open ? 'text-white' : 'text-white/90'}
                             group inline-flex uppercase items-center rounded-md bg-gradient-to-r from-blau to-grana px-3 py-2 text-base font-medium hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75`}
                             >
-                                <span>Somos El 10 del Barça</span>
+                                <span className="font-just">Somos El 10 del Barça</span>
                                 <ChevronDownIcon
                                     className={`${open ? 'text-orange-300' : 'text-orange-300/70'}
                             ml-2 h-5 w-5 transition duration-150 ease-in-out group-hover:text-orange-300/80`}
@@ -99,32 +95,32 @@ const NavBar = () => {
                                 leaveFrom="opacity-100 translate-y-0"
                                 leaveTo="opacity-0 translate-y-1"
                             >
-                                <Popover.Panel className="absolute left-0 z-10  mt-3 w-screen max-w-sm transform px-4 sm:px-0 lg:max-w-3xl">
+                                <Popover.Panel className="absolute left-0 z-10 mt-3 w-screen max-w-sm transform px-4 sm:px-0 lg:max-w-3xl">
                                     <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
                                         <div className="relative grid gap-8 bg-gradient-to-r from-blau to-grana p-7 lg:grid-cols-2">
                                             {solutions.map((item) => (
-                                                <div
+                                                <a
                                                     key={item.name}
-
+                                                    href={item.href}
                                                     className="-m-3 flex items-center rounded-lg p-2 transition duration-250 ease-in-out hover:bg-gray-800 focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 cursor-default"
                                                 >
                                                     <div className="ml-4">
                                                         {item.icon && <img src={item.icon} alt={item.name} className="w-10 h-10" />}
-                                                        <p className=" font-medium text-sm text-white">
+                                                        <p className="font-medium text-sm text-white">
                                                             {item.name}
                                                         </p>
                                                         <p className="text-xs text-white">
                                                             {item.description}
                                                         </p>
                                                     </div>
-                                                </div>
+                                                </a>
                                             ))}
                                         </div>
                                         <div className="bg-gradient-to-r from-blau to-grana p-4">
                                             <div
                                                 className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50"
                                             >
-
+                                                {/* Dropdown content */}
                                             </div>
                                         </div>
                                     </div>
@@ -135,9 +131,50 @@ const NavBar = () => {
                 </Popover>
             </div>
             <div className="navbar-center flex justify-center items-center">
-                <img src="/logo10.jpg" alt="Logo" className="mx-auto w-36 h-36 mt-2 rounded-full" />
+                <div
+                    className={`flex flex-col items-center transform ${isHovered1 ? 'scale-110' : ''} transition-transform cursor-pointer`}
+                    onMouseEnter={() => setIsHovered1(true)}
+                    onMouseLeave={() => setIsHovered1(false)}
+                >
+
+                    <img src="/miguelangel.png" alt="Imagen Izquierda" className="mb-0 w-[130px] h-[160px] mt-6 mr-4 mr-4" />
+                    <p className={`mt-0 text-xl text-white font-just ${isHovered1 ? 'opacity-100 scale-410' : 'opacity-0'} transition-all`}>Miguel Angel Ruiz</p>
+                </div>
+                <img src="/logo10.jpg" alt="Logo" className="mx-auto w-[140px] h-[140px] mt-2 rounded-full" />
+                <div
+                    className={`flex flex-col items-center transform ${isHovered2 ? 'scale-110' : ''} transition-transform cursor-pointer`}
+                    onMouseEnter={() => setIsHovered2(true)}
+                    onMouseLeave={() => setIsHovered2(false)}
+                >
+                    <img src="jony.png" alt="Imagen Derecha" className="w-[130px] h-[160px] mt-6 ml-6 mb-0 mr-4 " />
+                    <p className={`mt-0 font-just text-xl text-white ${isHovered2 ? 'opacity-100 scale-110' : 'opacity-0'} transition-all`}>Jhony Culé</p>
+                </div>
             </div>
-            <div className="navbar-end flex" style={{ width: '30%' }}>
+            <div className="navbar-end flex justify-end" style={{ width: '30%' }}>
+                <Button
+                    variant="contained"
+                    onClick={() => setShowVideo(true)}
+
+                    style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
+                >Como Donar
+                </Button>
+                {showVideo && (
+                    <div className="fixed top-[350%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <iframe
+                            width="560"
+                            height="315"
+                            src="https://www.youtube.com/embed/8KSFSJIQYv4?autoplay=1"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                        <button onClick={() => setShowVideo(false)} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto block">Cerrar</button>
+                    </div>
+                )}
+
+
+
                 <button className="btn btn-ghost btn-circle" style={{ width: '50px' }}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -151,8 +188,9 @@ const NavBar = () => {
                         <span className="badge badge-xs badge-primary indicator-item"></span>
                     </div>
                 </button>
-            </div>
-        </div>
+            </div >
+        </div >
     );
-}
+};
+
 export default NavBar;

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './index.css'
 import FullScreenVideo from './components/FullScreenVideo'
 import NavBar from './components/NavBar'
@@ -11,10 +11,11 @@ function App() {
       <div className='relative'>
         <NavBar />
         <FullScreenVideo />
-        <Switch>
-          <Route exact path="/" component={Noticias} /> {/* Pantalla principal con lista de noticias */}
-          <Route path="/noticias/:id" component={NoticiaCompleta} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Noticias />} /> {/* Pantalla principal con lista de noticias */}
+          <Route path="/noticias/:id" element={<NoticiaCompleta />
+          } />
+        </Routes>
       </div>
     </Router>
   );
