@@ -10,3 +10,5 @@ async function logOut() {
         console.log(error)
     }
 }
+
+export default logOut;

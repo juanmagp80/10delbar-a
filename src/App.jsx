@@ -7,9 +7,20 @@ import NoticiaCompleta from './components/NoticiaCompleta'
 import Home from './views/Home'
 import Login from './views/Login'
 import { useState } from 'react';
+import auth from './firebase/credenciales';
+import { onAuthStateChanged } from 'firebase/auth';
 
 function App() {
-  const [user, etUser] = useState(null);
+  const [user, setUser] = useState(null);
+
+  onAuthStateChanged(auth, usuarioFirebase => {
+    if (usuarioFirebase) {
+      setUser(usuarioFirebase);
+    } else {
+      setUser(null);
+    }
+  }
+  );
   return (
     <div> {/* Wrap the JSX code inside a parent element */}
       {user ? <Home user={user} /> : <Login />}

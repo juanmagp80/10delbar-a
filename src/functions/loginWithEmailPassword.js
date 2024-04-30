@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 
 async function loginWithEmailPassword(email, password) {
     try {
-        const user = await signInWithEmailAndPassword(auth, email, password
+        const user = await signInWithEmailAndPassword(email, password
         )
         console.log(user)
     }
@@ -11,3 +11,4 @@ async function loginWithEmailPassword(email, password) {
         console.log(error)
     }
 }
+export default loginWithEmailPassword;
