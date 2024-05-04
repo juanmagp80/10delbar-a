@@ -11,20 +11,26 @@ const Noticias = () => {
     useEffect(() => {
         const fetchNoticias = async () => {
 
-            const response = await axios.get('http://localhost:1337/api/noticias?populate=imagen');
-            const noticias = response.data.data;
+            const response = await axios.get('http://localhost:3000/noticias');
+            const noticias = response.data;
+            if (noticias.imagen) {
+                console.log(noticias.imagen);
+            } else {
+                console.log('Esta noticia no tiene imagen');
+            }
             console.log("noticias", noticias);
-            const urlPrimeraImagen = noticias[0].attributes.imagen.data[0].attributes.url;
+
+            const urlPrimeraImagen = noticias[0].imagen.data[0].attributes.url;
             console.log("url", urlPrimeraImagen);
 
 
             console.log("ruta", response.data);
-            setNoticias(response.data.data);
+            setNoticias(response.data);
         };
 
         fetchNoticias();
     }, []);
-
+    console.log(noticias[0]);
     return (
         <div>
 

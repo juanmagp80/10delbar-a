@@ -19,7 +19,6 @@ function App() {
 
       <Router>
         <div className='relative'>
-          <NoticiaForm />
 
           <NavBar />
           <FullScreenVideo />

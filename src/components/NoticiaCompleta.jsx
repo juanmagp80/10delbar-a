@@ -9,8 +9,9 @@ const NoticiaCompleta = () => {
     useEffect(() => {
         const fetchNoticiaCompleta = async () => {
             try {
-                const response = await axios.get(`http://localhost:1337/api/noticias/${id}?populate=imagen`);
+                const response = await axios.get(`http://localhost:3000/noticias/${id}?populate=imagen`);
                 setNoticia(response.data);
+                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching noticia completa:', error);
             }
