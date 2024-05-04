@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const NoticiaForm = () => {
+const NoticiaForm = ({ closeModal }) => {
     const [titulo, setTitulo] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [redactor, setRedactor] = useState('');
@@ -35,6 +35,8 @@ const NoticiaForm = () => {
             });
 
             console.log(response.data);
+            closeModal();
+            window.location.reload();
         } catch (error) {
             console.error('Error:', error);
         }
@@ -74,12 +76,11 @@ const NoticiaForm = () => {
             </div>
             <div>
                 <label htmlFor="descripcion" className="block text-sm font-medium text-gray-700">Descripción</label>
-                <input
-                    type="text"
+                <textarea
                     id="descripcion"
                     value={descripcion}
                     onChange={(e) => setDescripcion(e.target.value)}
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full h-48 py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
             </div>
             <div>
@@ -88,7 +89,13 @@ const NoticiaForm = () => {
                     type="text"
                     id="redactor"
                     value={redactor}
-                    onChange={(e) => setRedactor(e.target.value)}
+                    onChange={(e) => {
+                        console.log("redactr", e.target.value)
+
+                        setRedactor(e.target.value)
+
+                    }
+                    }
                     className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
             </div>

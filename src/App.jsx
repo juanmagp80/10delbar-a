@@ -5,12 +5,15 @@ import NavBar from './components/NavBar'
 import Noticias from './components/Noticias'
 import NoticiaCompleta from './components/NoticiaCompleta'
 import NoticiaForm from './components/NoticiaForm';
+import Modal from './components/Modal';
 
 import { useState } from 'react';
 
 
 function App() {
+  const [showForm, setShowForm] = useState(false);
   const [user, setUser] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
 
 
@@ -19,15 +22,20 @@ function App() {
 
       <Router>
         <div className='relative'>
+          <>
+            <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
+              <NoticiaForm closeModal={() => setModalOpen(false)} />
+            </Modal>
+            <NavBar setShowForm={setShowForm} />
 
-          <NavBar />
-          <FullScreenVideo />
-          <Routes>
-            <Route path="/" element={<Noticias />} /> {/* Pantalla principal con lista de noticias */}
-            <Route path="/noticias/:id" element={<NoticiaCompleta />} />
+            <FullScreenVideo />
+            <Routes>
+              <Route path="/" element={<Noticias />} /> {/* Pantalla principal con lista de noticias */}
+              <Route path="/noticias/:id" element={<NoticiaCompleta />} />
 
-          </Routes>
+            </Routes>
 
+          </>
         </div>
       </Router>
     </div>

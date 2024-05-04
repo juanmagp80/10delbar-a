@@ -60,7 +60,8 @@ const solutions = [
     }
 ];
 
-const NavBar = () => {
+const NavBar = ({ setShowForm }) => {
+
     const [isHovered1, setIsHovered1] = useState(false);
     const [isHovered2, setIsHovered2] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -157,6 +158,12 @@ const NavBar = () => {
 
                     style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
                 >Como Donar
+                </Button>
+                <Button
+                    variant="contained"
+                    onClick={() => setShowForm(true)}
+                    style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
+                >Redactores
                 </Button>
                 {showVideo && (
                     <div className="fixed top-[350%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">

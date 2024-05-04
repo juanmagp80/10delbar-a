@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 const NoticiaCard = ({ noticia }) => {
     console.log(noticia);
     const defaultImageUrl = 'ruta/a/tu/imagen/por/defecto.jpg'; // Reemplaza esto con la ruta a tu imagen por defecto
-    const imageUrl = `http://localhost:1337${noticia.attributes?.imagen?.data[0]?.attributes?.url}` || defaultImageUrl;
+    const imageUrl = `{noticia.imagen}` || defaultImageUrl;
     console.log("imagen", imageUrl);
-    const descripcionCorta = noticia.attributes?.Descripcion.substring(0, 100) + '...';
-
+    const descripcionCorta = noticia.descripcion.substring(0, 100) + '...';
+    console.log(imageUrl)
 
     return (
         <div className="flex-1 p-2 mt-10">
@@ -16,26 +16,26 @@ const NoticiaCard = ({ noticia }) => {
                 <CardActionArea style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                     <CardMedia
                         component="img"
-                        alt={noticia.attributes?.Titulo}
+                        alt={noticia.titulo}
                         height="200"
-                        image={imageUrl}
-                        title={noticia.attributes?.Titulo}
+                        image={noticia.imagen || defaultImageUrl}
+                        title={noticia.titulo}
                         className='object-cover h-100'
                         style={{ objectFit: 'cover', height: '200px' }} // Establece un tamaño fijo para las imágenes
 
                     />
                     <CardContent className="bg-white" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flexGrow: 1 }}>
                         <Typography gutterBottom variant="h5" component="h2" className="mb-2 text-sm">
-                            {noticia.attributes?.Titulo}
+                            {noticia.titulo}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p" className="mb-2 text-xs">
                             {descripcionCorta}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p" className="mb-2 text-xs font-bold">
-                            {`Escrito por ${noticia.attributes?.Redactor}`}
+                            {`Escrito por ${noticia.redactor}`}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p" className="text-xs">
-                            {new Date(noticia.attributes?.fechaPublicacion).toLocaleDateString()}
+                            {new Date(noticia.fecha).toLocaleDateString()}
                         </Typography>
                         <Link to={`/noticias/${noticia.id}`}>
                             <Button variant="contained">

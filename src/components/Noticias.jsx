@@ -13,14 +13,13 @@ const Noticias = () => {
 
             const response = await axios.get('http://localhost:3000/noticias');
             const noticias = response.data;
-            if (noticias.imagen) {
-                console.log(noticias.imagen);
-            } else {
-                console.log('Esta noticia no tiene imagen');
-            }
+            console.log(noticias.imagen);
+            noticias.forEach(noticia => {
+                console.log(noticia.imagen);
+            });
             console.log("noticias", noticias);
 
-            const urlPrimeraImagen = noticias[0].imagen.data[0].attributes.url;
+            const urlPrimeraImagen = noticias[0].imagen;
             console.log("url", urlPrimeraImagen);
 
 
@@ -34,17 +33,19 @@ const Noticias = () => {
     return (
         <div>
 
-            {noticias.map((noticia) => (
-                <Link key={noticia.id} to={`/noticias/${noticia.id}`}>
-                    <div key={noticia.id}>
-                        <NoticiaCard noticia={noticia} />
-                    </div>
-                </Link>
-            ))}
-
+            {noticias.map((noticia) => {
+                console.log("noticiamap", noticia.id);
+                return (
+                    <Link key={noticia.id} to={`/noticias/${noticia.id}`}>
+                        <div key={noticia.id}>
+                            <NoticiaCard noticia={noticia} />
+                        </div>
+                    </Link>
+                );
+            })}
 
             <NoticiasList noticias={noticias} /> {/* Mover esto fuera del mapeo de noticias */}
-        </div>
+        </div >
     );
 };
 
