@@ -28,7 +28,7 @@ const NoticiaForm = ({ closeModal }) => {
         });
 
         try {
-            const response = await axios.post('http://localhost:3000/noticias', formData, {
+            const response = await axios.post('https://basedatosbarca-8b9074e04ffa.herokuapp.com/noticias', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

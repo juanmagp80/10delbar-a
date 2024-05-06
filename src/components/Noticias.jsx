@@ -11,7 +11,7 @@ const Noticias = () => {
     useEffect(() => {
         const fetchNoticias = async () => {
 
-            const response = await axios.get('http://localhost:3000/noticias');
+            const response = await axios.get('https://basedatosbarca-8b9074e04ffa.herokuapp.com/noticias');
             const noticias = response.data;
             console.log(noticias.imagen);
             noticias.forEach(noticia => {

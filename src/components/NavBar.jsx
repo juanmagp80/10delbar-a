@@ -6,6 +6,9 @@ import ReactModal from 'react-modal';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import ReactPlayer from 'react-player';
+import Modal from 'react-modal';
+
 
 const solutions = [
     {
@@ -226,29 +229,43 @@ const NavBar = ({ setShowForm }) => {
                     variant="contained"
                     onClick={() => setShowVideo(true)}
 
-                    style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
-                >Como Donar
+                    style={{ px: 4, background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
+                >Como Unirse
                 </Button>
+                <Modal
+                    isOpen={showVideo}
+                    onRequestClose={() => setShowVideo(false)}
+                    style={{
+                        overlay: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                            zIndex: 1000 // Asegura que el modal se superponga a otros elementos
+                        }
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        onClick={() => setShowVideo(false)}
+
+                        style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
+                    >Cerrar Video
+                    </Button>
+
+
+                    <ReactPlayer
+                        url="/comounirse.mp4"
+                        width="200" // Ajusta el ancho del video
+                        height="225" // Ajusta la altura del video
+                        controls
+                        playing={true} // Hace que el video se reproduzca automáticamente
+                    />
+                </Modal>
                 <Button
                     variant="contained"
                     onClick={() => setShowForm(true)}
                     style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
                 >Redactores
                 </Button>
-                {showVideo && (
-                    <div className="fixed top-[350%] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        <iframe
-                            width="560"
-                            height="315"
-                            src="https://www.youtube.com/embed/8KSFSJIQYv4?autoplay=1"
-                            title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
-                        <button onClick={() => setShowVideo(false)} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto block">Cerrar</button>
-                    </div>
-                )}
+
 
 
 
@@ -266,7 +283,7 @@ const NavBar = ({ setShowForm }) => {
                     </div>
                 </button>
             </div>
-        </div>
+        </div >
 
 
     );
