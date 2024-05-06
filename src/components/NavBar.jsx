@@ -1,7 +1,11 @@
-import { useState, Fragment } from 'react';
-import { Popover, Transition } from '@headlessui/react';
+import { useState, } from 'react';
+import { Popover } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Button } from '@mui/material';
+import ReactModal from 'react-modal';
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 const solutions = [
     {
@@ -66,9 +70,21 @@ const NavBar = ({ setShowForm }) => {
     const [isHovered2, setIsHovered2] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [showVideo, setShowVideo] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
+
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
+
+    const openModal = (title, description, image) => {
+        setModalContent({ title, description, image });
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+    };
     return (
         <div className="absolute navbar flex justify-between items-center w-full h-40 z-10 bg-gradient-to-r from-blue-opaque to-red-opaque backdrop-filter backdrop-blur-lg shadow-lg p-4">
             <div className="navbar-start flex" style={{ width: '30%' }}>
@@ -133,11 +149,11 @@ const NavBar = ({ setShowForm }) => {
             </div>
             <div className="navbar-center flex justify-center items-center">
                 <div
-                    className={`flex flex-col items-center transform ${isHovered1 ? 'scale-110' : ''} transition-transform cursor-pointer`}
+                    className={`flex flex-col items-center transform text-white ${isHovered1 ? 'scale-110' : ''} transition-transform cursor-pointer`}
                     onMouseEnter={() => setIsHovered1(true)}
                     onMouseLeave={() => setIsHovered1(false)}
+                    onClick={() => openModal('Miguel Angel Ruiz', 'Periodista Deportivo. Director @10delBarca Luchando contra el desprestigio nacional al Barça. ¡EL BARÇA, SE RESPETA! ', '/MiguelAngel300.jpg')}
                 >
-
                     <img src="/miguelangel.png" alt="Imagen Izquierda" className="mb-0 w-[130px] h-[160px] mt-6 mr-4 mr-4" />
                     <p className={`mt-0 text-xl text-white font-just ${isHovered1 ? 'opacity-100 scale-410' : 'opacity-0'} transition-all`}>Miguel Angel Ruiz</p>
                 </div>
@@ -146,10 +162,64 @@ const NavBar = ({ setShowForm }) => {
                     className={`flex flex-col items-center transform ${isHovered2 ? 'scale-110' : ''} transition-transform cursor-pointer`}
                     onMouseEnter={() => setIsHovered2(true)}
                     onMouseLeave={() => setIsHovered2(false)}
+                    onClick={() => openModal('Jhony Culé', 'Programa del Barça en español: @10delBarca Que es mi Barça, mi tesoro, que es mi Messi la libertad, mi ley, el Tiki-taka, mi única patria, el Nou Camp', '/johnycule300.jpg')}
                 >
                     <img src="jony.png" alt="Imagen Derecha" className="w-[130px] h-[160px] mt-6 ml-6 mb-0 mr-4 " />
                     <p className={`mt-0 font-just text-xl text-white ${isHovered2 ? 'opacity-100 scale-110' : 'opacity-0'} transition-all`}>Jhony Culé</p>
                 </div>
+                <CSSTransition
+                    in={modalOpen}
+                    timeout={800}
+                    classNames="my-node"
+                    unmountOnExit
+                >
+                    <ReactModal
+                        className="text-white font-just rounded-xl p-4 shadow-xl"
+                        isOpen={modalOpen}
+                        onRequestClose={closeModal}
+                        closeTimeoutMS={1200}
+
+                        style={{
+                            overlay: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                display: 'flex',
+                                alignItems: 'center', // Centra el modal verticalmente
+                                justifyContent: 'center', // Centra el modal horizontalmente
+                                zIndex: 1000, // Asegura que el modal se superponga a otros elementos
+                            },
+                            content: {
+                                animation: 'appear 800ms ease-out forwards',
+                                background: 'linear-gradient(to right, blue, #800000)',
+                                color: 'white',
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                right: 'auto',
+                                bottom: 'auto',
+                                transform: 'translate(-50%, -50%)',
+                                zIndex: 1000,
+                                maxWidth: '80%',
+                                maxHeight: '80%',
+                                opacity: 0, // Inicia el contenido del modal con opacidad 0
+                            }
+                        }}
+                        contentLabel="Example Modal"
+                    >
+                        <h2 className="text-4xl text-center p-4">{modalContent && modalContent.title}</h2>
+                        <p className="text-2xl p-8">{modalContent && modalContent.description}</p>
+                        <img className="mx-auto" src={modalContent && modalContent.image} alt={modalContent && modalContent.title} />
+                        <div className="p-4" style={{ display: 'flex', justifyContent: 'center' }}>
+                            <Button variant="contained"
+                                onClick={closeModal}
+                                style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
+                            >
+                                Cerrar
+                            </Button>
+                        </div>
+                    </ReactModal>
+                </CSSTransition>
+
+
             </div>
             <div className="navbar-end flex justify-end" style={{ width: '30%' }}>
                 <Button
@@ -195,8 +265,10 @@ const NavBar = ({ setShowForm }) => {
                         <span className="badge badge-xs badge-primary indicator-item"></span>
                     </div>
                 </button>
-            </div >
-        </div >
+            </div>
+        </div>
+
+
     );
 };
 

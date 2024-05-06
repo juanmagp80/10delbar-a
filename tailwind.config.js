@@ -9,6 +9,14 @@ export default {
       just: ['Jost', 'Inter', 'sans-serif'],
     },
     extend: {
+      transitionProperty: {
+        'height': 'height',
+        'spacing': 'margin, padding',
+        'transform': 'transform',
+      },
+      transitionDuration: {
+        '2000': '2000ms',
+      },
       colors: {
         'blau': '#3B82F6', // Reemplaza con el código de color que desees para 'blau'
         'grana': '#DC2626', // Reemplaza con el código de color que desees para 'grana'
@@ -30,6 +38,18 @@ export default {
 
     },
   },
-  variants: {},
+  variants: {
+    extend: {
+      transform: ['responsive', 'motion-safe', 'motion-reduce'],
+    }
+  },
   plugins: [],
+  corePlugins: {
+    // ...
+    transitionProperty: true,
+    transitionTimingFunction: true,
+    transitionDuration: true,
+    transform: true,
+    transformOrigin: true,
+  },
 }
