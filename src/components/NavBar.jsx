@@ -8,7 +8,6 @@ import { Fragment } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import ReactPlayer from 'react-player';
 import Modal from 'react-modal'
-import myAudioFile from '../../../10delbar-a/public/.comments/'; // Asegúrate de reemplazar esto con la ruta a tu archivo de audio
 
 
 
@@ -79,15 +78,9 @@ const NavBar = ({ setShowForm }) => {
     const [showVideo, setShowVideo] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
-    const audioRef = useRef();
 
 
-    const [audio, setAudio] = useState(new Audio(myAudioFile));
-    const openAudioModal = (title, description, image) => {
-        setModalContent({ title, description, image });
-        setModalOpen(true);
-        audio.play();
-    };
+
 
 
     const toggleDropdown = () => setIsOpen(!isOpen);
@@ -282,8 +275,6 @@ const NavBar = ({ setShowForm }) => {
                 >Redactores
                 </Button>
 
-                <Button className="btn btn-ghost btn-circle" style={{ width: '50px' }} onClick={openAudioModal} >
-                </Button>
 
 
 
