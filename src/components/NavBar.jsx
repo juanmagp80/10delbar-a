@@ -1,4 +1,4 @@
-import { useState, } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Popover } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Button } from '@mui/material';
@@ -7,7 +7,10 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import ReactPlayer from 'react-player';
-import Modal from 'react-modal';
+import Modal from 'react-modal'
+import myAudioFile from '../../../10delbar-a/public/.comments/'; // Asegúrate de reemplazar esto con la ruta a tu archivo de audio
+
+
 
 
 const solutions = [
@@ -69,12 +72,22 @@ const solutions = [
 
 const NavBar = ({ setShowForm }) => {
 
+
     const [isHovered1, setIsHovered1] = useState(false);
     const [isHovered2, setIsHovered2] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [showVideo, setShowVideo] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
+    const audioRef = useRef();
+
+
+    const [audio, setAudio] = useState(new Audio(myAudioFile));
+    const openAudioModal = (title, description, image) => {
+        setModalContent({ title, description, image });
+        setModalOpen(true);
+        audio.play();
+    };
 
 
     const toggleDropdown = () => setIsOpen(!isOpen);
@@ -88,9 +101,12 @@ const NavBar = ({ setShowForm }) => {
     const closeModal = () => {
         setModalOpen(false);
     };
+
+
     return (
         <div className="absolute navbar flex justify-between items-center w-full h-40 z-10 bg-gradient-to-r from-blue-opaque to-red-opaque backdrop-filter backdrop-blur-lg shadow-lg p-4">
             <div className="navbar-start flex" style={{ width: '30%' }}>
+
                 <Popover className="relative ml-2 font-just uppercase">
                     {({ open }) => (
                         <>
@@ -265,6 +281,10 @@ const NavBar = ({ setShowForm }) => {
                     style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
                 >Redactores
                 </Button>
+
+                <Button className="btn btn-ghost btn-circle" style={{ width: '50px' }} onClick={openAudioModal} >
+                </Button>
+
 
 
 
