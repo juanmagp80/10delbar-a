@@ -6,6 +6,10 @@ import Noticias from './components/Noticias'
 import NoticiaCompleta from './components/NoticiaCompleta'
 import NoticiaForm from './components/NoticiaForm';
 import Modal from './components/Modal';
+import { Auth0Provider } from '@auth0/auth0-react';
+
+
+
 
 import { useState } from 'react';
 
@@ -18,7 +22,11 @@ function App() {
 
 
   return (
-    <Provider store={store}>
+    <Auth0Provider
+      domain="dev-owz5lsfhlmixdmp7.us.auth0.com"
+      clientId="NL7HgbjGrwfMlBEmx1IMyBxrGDuJuyk8"
+      redirectUri={window.location.origin}
+    >
       <div> {/* Wrap the JSX code inside a parent element */}
 
         <Router>
@@ -40,7 +48,7 @@ function App() {
           </div>
         </Router>
       </div>
-    </Provider>
+    </Auth0Provider>
   );
 }
 

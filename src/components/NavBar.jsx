@@ -8,7 +8,7 @@ import { Fragment } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import ReactPlayer from 'react-player';
 import Modal from 'react-modal'
-
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 
@@ -78,6 +78,9 @@ const NavBar = ({ setShowForm }) => {
     const [showVideo, setShowVideo] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
+    const { isAuthenticated } = useAuth0();
+    const { loginWithRedirect, logout } = useAuth0();
+
 
 
 
@@ -268,6 +271,7 @@ const NavBar = ({ setShowForm }) => {
                         playing={true} // Hace que el video se reproduzca automáticamente
                     />
                 </Modal>
+
                 <Button
                     variant="contained"
                     onClick={() => setShowForm(true)}
@@ -275,6 +279,10 @@ const NavBar = ({ setShowForm }) => {
                 >Redactores
                 </Button>
 
+                <div>
+                    {!isAuthenticated && <button onClick={loginWithRedirect}>Log in</button>}
+                    {isAuthenticated && <button onClick={logout}>Log out</button>}
+                </div>
 
 
 
