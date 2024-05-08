@@ -18,27 +18,29 @@ function App() {
 
 
   return (
-    <div> {/* Wrap the JSX code inside a parent element */}
+    <Provider store={store}>
+      <div> {/* Wrap the JSX code inside a parent element */}
 
-      <Router>
-        <div className='relative'>
-          <>
-            <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
-              <NoticiaForm closeModal={() => setModalOpen(false)} />
-            </Modal>
-            <NavBar setShowForm={setShowForm} />
+        <Router>
+          <div className='relative'>
+            <>
+              <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
+                <NoticiaForm closeModal={() => setModalOpen(false)} />
+              </Modal>
+              <NavBar setShowForm={setShowForm} />
 
-            <FullScreenVideo />
-            <Routes>
-              <Route path="/" element={<Noticias />} /> {/* Pantalla principal con lista de noticias */}
-              <Route path="/noticias/:id" element={<NoticiaCompleta />} />
+              <FullScreenVideo />
+              <Routes>
+                <Route path="/" element={<Noticias />} /> {/* Pantalla principal con lista de noticias */}
+                <Route path="/noticias/:id" element={<NoticiaCompleta />} />
 
-            </Routes>
+              </Routes>
 
-          </>
-        </div>
-      </Router>
-    </div>
+            </>
+          </div>
+        </Router>
+      </div>
+    </Provider>
   );
 }
 
