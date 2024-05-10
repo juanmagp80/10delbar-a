@@ -11,6 +11,9 @@ import Modal from 'react-modal'
 import { useAuth0 } from '@auth0/auth0-react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import LoginForm from './LoginForm';
+import auth from "../../src/firebase";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+
 
 
 
@@ -80,8 +83,36 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
     const [showVideo, setShowVideo] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
-    const { isAuthenticated } = useAuth0();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const { loginWithRedirect, logout } = useAuth0();
+    const [showLoginForm, setShowLoginForm] = useState(false);
+
+
+
+    const handleCloseModal = () => {
+        setShowLoginForm(false);
+    };
+
+    const handleLoginClick = () => {
+        const provider = new GoogleAuthProvider();
+
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                setIsAuthenticated(true);
+            }).catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const handleLogoutClick = () => {
+        signOut(auth)
+            .then(() => {
+                setIsAuthenticated(false);
+            }).catch((error) => {
+                console.error(error);
+            });
+    };
+
 
 
 
@@ -108,16 +139,8 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
 
     return (
         <div className="absolute navbar flex justify-between items-center w-full h-40 z-10 bg-gradient-to-r from-blue-opaque to-red-opaque backdrop-filter backdrop-blur-lg shadow-lg p-4">
-            {user ? (
-                <div className='z-20'>
-                    <p>Usuario conectado: {user.email}</p>
-                    {role === 'redactor' && <button>Botón para redactores</button>}
-                </div>
-            ) : (
-                <p className='z-20'>No hay usuario conectado</p>
-            )}
-            <LoginForm login={login} />
-            <button onClick={handleRegister}>Registrar</button>
+
+
 
             <div className="navbar-start flex" style={{ width: '30%' }}>
 
@@ -296,11 +319,18 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
                     style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
                 >Redactores
                 </Button>
-
                 <div>
-                    {!isAuthenticated && <button onClick={loginWithRedirect}>Log in</button>}
-                    {isAuthenticated && <button onClick={logout}>Log out</button>}
+                    <button onClick={handleLoginClick}>Log In nuevo</button>
+
+                    {isAuthenticated ? (
+                        <button onClick={handleLogoutClick}>Logout</button>
+                    ) : (
+                        <button onClick={handleLoginClick}>Registrar</button>
+                    )}
                 </div>
+
+
+
 
 
 
