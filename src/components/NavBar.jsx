@@ -9,6 +9,8 @@ import { CSSTransition } from 'react-transition-group';
 import ReactPlayer from 'react-player';
 import Modal from 'react-modal'
 import { useAuth0 } from '@auth0/auth0-react';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import LoginForm from './LoginForm';
 
 
 
@@ -69,7 +71,7 @@ const solutions = [
     }
 ];
 
-const NavBar = ({ setShowForm }) => {
+const NavBar = ({ register, login, user, role, setShowForm }) => {
 
 
     const [isHovered1, setIsHovered1] = useState(false);
@@ -97,10 +99,26 @@ const NavBar = ({ setShowForm }) => {
     const closeModal = () => {
         setModalOpen(false);
     };
+    const handleRegister = () => {
+        const email = prompt('Por favor, introduce tu correo electrónico');
+        const password = prompt('Por favor, introduce tu contraseña');
+        register(email, password);
+    };
 
 
     return (
         <div className="absolute navbar flex justify-between items-center w-full h-40 z-10 bg-gradient-to-r from-blue-opaque to-red-opaque backdrop-filter backdrop-blur-lg shadow-lg p-4">
+            {user ? (
+                <div className='z-20'>
+                    <p>Usuario conectado: {user.email}</p>
+                    {role === 'redactor' && <button>Botón para redactores</button>}
+                </div>
+            ) : (
+                <p className='z-20'>No hay usuario conectado</p>
+            )}
+            <LoginForm login={login} />
+            <button onClick={handleRegister}>Registrar</button>
+
             <div className="navbar-start flex" style={{ width: '30%' }}>
 
                 <Popover className="relative ml-2 font-just uppercase">
