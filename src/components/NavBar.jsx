@@ -202,8 +202,44 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
                         </>
                     )}
                 </Popover>
+                <div className='ml-12 font-just uppercase'>
+                    <Button
+                        variant="contained"
+                        onClick={() => setShowVideo(true)}
+
+                        style={{ px: 4, background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
+                    >Como Unirse
+                    </Button>
+                    <Modal
+                        isOpen={showVideo}
+                        onRequestClose={() => setShowVideo(false)}
+                        style={{
+                            overlay: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                zIndex: 1000 // Asegura que el modal se superponga a otros elementos
+                            }
+                        }}
+                    >
+                        <Button
+                            variant="contained"
+                            onClick={() => setShowVideo(false)}
+
+                            style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
+                        >Cerrar Video
+                        </Button>
+
+
+                        <ReactPlayer
+                            url="/comounirse.mp4"
+                            width="200" // Ajusta el ancho del video
+                            height="225" // Ajusta la altura del video
+                            controls
+                            playing={true} // Hace que el video se reproduzca automáticamente
+                        />
+                    </Modal>
+                </div>
             </div>
-            <div className="navbar-center flex justify-center items-center">
+            <div className="navbar-center flex justify-between items-center">
                 <div
                     className={`flex flex-col items-center transform text-white ${isHovered1 ? 'scale-110' : ''} transition-transform cursor-pointer`}
                     onMouseEnter={() => setIsHovered1(true)}
@@ -223,6 +259,7 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
                     <img src="jony.png" alt="Imagen Derecha" className="w-[130px] h-[160px] mt-6 ml-6 mb-0 mr-4 " />
                     <p className={`mt-0 font-just text-xl text-white ${isHovered2 ? 'opacity-100 scale-110' : 'opacity-0'} transition-all`}>Jhony Culé</p>
                 </div>
+
                 <CSSTransition
                     in={modalOpen}
                     timeout={800}
@@ -276,42 +313,10 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
                 </CSSTransition>
 
 
+
             </div>
-            <div className="navbar-end flex justify-end" style={{ width: '30%' }}>
-                <Button
-                    variant="contained"
-                    onClick={() => setShowVideo(true)}
 
-                    style={{ px: 4, background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
-                >Como Unirse
-                </Button>
-                <Modal
-                    isOpen={showVideo}
-                    onRequestClose={() => setShowVideo(false)}
-                    style={{
-                        overlay: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                            zIndex: 1000 // Asegura que el modal se superponga a otros elementos
-                        }
-                    }}
-                >
-                    <Button
-                        variant="contained"
-                        onClick={() => setShowVideo(false)}
-
-                        style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
-                    >Cerrar Video
-                    </Button>
-
-
-                    <ReactPlayer
-                        url="/comounirse.mp4"
-                        width="200" // Ajusta el ancho del video
-                        height="225" // Ajusta la altura del video
-                        controls
-                        playing={true} // Hace que el video se reproduzca automáticamente
-                    />
-                </Modal>
+            <div className='ml-20 font-just uppercase'>
 
                 <Button
                     variant="contained"
@@ -319,14 +324,21 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
                     style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
                 >Redactores
                 </Button>
-                <div>
-                    <button onClick={handleLoginClick}>Log In nuevo</button>
 
-                    {isAuthenticated ? (
-                        <button onClick={handleLogoutClick}>Logout</button>
-                    ) : (
-                        <button onClick={handleLoginClick}>Registrar</button>
-                    )}
+                {isAuthenticated ? (
+                    <button onClick={handleLogoutClick}>Logout</button>
+                ) : (
+                    <button onClick={handleLoginClick}>Registrar</button>
+                )}
+            </div>
+            <div>
+                <div className='ml-20 mr-10 font-just uppercase'>
+                    <Button
+                        variant="contained"
+                        onClick={handleLoginClick}
+                        style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
+                    >Login
+                    </Button>
                 </div>
 
 
@@ -336,19 +348,11 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
 
 
 
-                <button className="btn btn-ghost btn-circle" style={{ width: '50px' }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </button>
-                <button className="btn btn-ghost btn-circle" style={{ width: '50px' }}>
-                    <div className="indicator">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
-                        <span className="badge badge-xs badge-primary indicator-item"></span>
-                    </div>
-                </button>
+
+
+
+
+
             </div>
         </div >
 

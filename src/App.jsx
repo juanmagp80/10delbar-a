@@ -11,8 +11,8 @@ import auth from './firebase';
 import { useEffect } from 'react';
 import LoginForm from './components/LoginForm';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-
-
+import UltimoDirecto from './components/UltimoDirecto';
+import { PopoverContext } from "./components/Popover";
 
 
 
@@ -24,6 +24,9 @@ function App() {
   const [user, setUser] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [role, setRole] = useState(null);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+
 
 
 
@@ -90,30 +93,32 @@ function App() {
   };
 
   return (
+    <PopoverContext.Provider value={[isPopoverOpen, setIsPopoverOpen]}>
+      <div> {/* Wrap the JSX code inside a parent element */}
 
-    <div> {/* Wrap the JSX code inside a parent element */}
+        <Router>
+          <div className='relative'>
+            <>
+              <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
+                <NoticiaForm closeModal={() => setModalOpen(false)} />
+              </Modal>
+              <NavBar register={register} login={login} user={user} role={role} setShowForm={setShowForm} />
+              <LoginForm login={login} />
+              <UltimoDirecto />
 
-      <Router>
-        <div className='relative'>
-          <>
-            <Modal isOpen={showForm} onClose={() => setShowForm(false)}>
-              <NoticiaForm closeModal={() => setModalOpen(false)} />
-            </Modal>
-            <NavBar register={register} login={login} user={user} role={role} setShowForm={setShowForm} />
-            <LoginForm login={login} />
-            <FullScreenVideo />
+              <FullScreenVideo />
 
-            <Routes>
-              <Route path="/" element={<Noticias />} /> {/* Pantalla principal con lista de noticias */}
-              <Route path="/noticias/:id" element={<NoticiaCompleta />} />
+              <Routes>
+                <Route path="/" element={<Noticias />} /> {/* Pantalla principal con lista de noticias */}
+                <Route path="/noticias/:id" element={<NoticiaCompleta />} />
 
-            </Routes>
+              </Routes>
 
-          </>
-        </div>
-      </Router>
-    </div>
-
+            </>
+          </div>
+        </Router>
+      </div>
+    </PopoverContext.Provider>
   );
 }
 

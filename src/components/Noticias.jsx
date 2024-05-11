@@ -31,7 +31,7 @@ const Noticias = () => {
     }, []);
     console.log(noticias[0]);
     return (
-        <div>
+        <div className='mt-60'>
 
             {noticias.map((noticia) => {
                 console.log("noticiamap", noticia.id);
