@@ -8,12 +8,10 @@ import { Fragment } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import ReactPlayer from 'react-player';
 import Modal from 'react-modal'
-import { useAuth0 } from '@auth0/auth0-react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import LoginForm from './LoginForm';
-import auth from "../../src/firebase";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 
 
@@ -74,7 +72,7 @@ const solutions = [
     }
 ];
 
-const NavBar = ({ register, login, user, role, setShowForm }) => {
+const NavBar = ({ register, user, role, setShowForm }) => {
 
 
     const [isHovered1, setIsHovered1] = useState(false);
@@ -84,34 +82,60 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const { loginWithRedirect, logout } = useAuth0();
     const [showLoginForm, setShowLoginForm] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().email('Invalid email address').required('Required'),
+            password: Yup.string().min(6, 'Must be 6 characters or more').required('Required'),
+        }),
+        onSubmit: async (values) => {
+            try {
+                await auth.signInWithEmailAndPassword(values.email, values.password);
+            } catch (error) {
+                console.error('Error signing in with password and email', error);
+            }
+        },
+    });
 
+    async function login(event) {
+        event.preventDefault();
+
+        const response = await fetch('https://basedatosbarca-8b9074e04ffa.herokuapp.com/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: formik.values.username,
+                password: formik.values.password
+            })
+        });
+        console.log('response:', response);
+        let data;
+        if (!response.ok) {
+            data = await response.json();
+            console.error('Error data:', data);
+            throw new Error('Error al iniciar sesión');
+        } else {
+            data = await response.json();
+
+        }
+
+        return data;
+    }
 
     const handleCloseModal = () => {
         setShowLoginForm(false);
     };
 
-    const handleLoginClick = () => {
-        const provider = new GoogleAuthProvider();
 
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                setIsAuthenticated(true);
-            }).catch((error) => {
-                console.error(error);
-            });
-    };
-
-    const handleLogoutClick = () => {
-        signOut(auth)
-            .then(() => {
-                setIsAuthenticated(false);
-            }).catch((error) => {
-                console.error(error);
-            });
-    };
 
 
 
@@ -325,20 +349,44 @@ const NavBar = ({ register, login, user, role, setShowForm }) => {
                 >Redactores
                 </Button>
 
-                {isAuthenticated ? (
-                    <button onClick={handleLogoutClick}>Logout</button>
-                ) : (
-                    <button onClick={handleLoginClick}>Registrar</button>
-                )}
+
             </div>
             <div>
                 <div className='ml-20 mr-10 font-just uppercase'>
                     <Button
                         variant="contained"
-                        onClick={handleLoginClick}
+                        onClick={() => setShowLoginForm(true)}
                         style={{ background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
                     >Login
                     </Button>
+                    {showLoginForm && (
+                        <form onSubmit={formik.handleSubmit}>
+
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="Email"
+                                onChange={formik.handleChange}
+                                value={formik.values.email}
+                            />
+                            {formik.touched.email && formik.errors.email ? (
+                                <div>{formik.errors.email}</div>
+                            ) : null}
+                            <input
+                                name="password"
+                                type="password"
+                                placeholder="Password"
+                                onChange={formik.handleChange}
+                                value={formik.values.password}
+                            />
+                            {formik.touched.password && formik.errors.password ? (
+                                <div>{formik.errors.password}</div>
+                            ) : null}
+                            <button onClick={login} type="submit">Login</button>
+
+
+                        </form>
+                    )}
                 </div>
 
 

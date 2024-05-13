@@ -26,7 +26,8 @@
     "express": "^4.19.2",
     "express-admin": "^2.0.0",
     "express-session": "^1.18.0",
-    "firebase": "^9.23.0",
+    "firebase": "^10.12.0",
+    "formik": "^2.4.6",
     "mysql2": "^3.9.7",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
@@ -38,9 +39,11 @@
     "react-responsive-modal": "^6.4.2",
     "react-router-dom": "^6.23.0",
     "react-transition-group": "^4.4.5",
+    "react-youtube": "^10.1.0",
     "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7",
-    "strapi": "^3.6.0-beta.5"
+    "strapi": "^3.6.0-beta.5",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

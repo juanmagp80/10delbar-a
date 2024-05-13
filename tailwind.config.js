@@ -14,6 +14,14 @@ export default {
         'spacing': 'margin, padding',
         'transform': 'transform',
       },
+      zIndex: {
+        '60': '60',
+        '70': '70',
+        // puedes continuar hasta el valor que necesites
+        '100': '100',
+        '1000': '1000',
+        '10000': '10000'
+      },
       transitionDuration: {
         '2000': '2000ms',
       },

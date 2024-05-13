@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { PopoverContext } from './Popover';
+import YouTube from 'react-youtube';
 
 const UltimoDirecto = () => {
     console.log('UltimoDirecto');
@@ -26,22 +27,24 @@ const UltimoDirecto = () => {
     }, []);
     console.log(videoId);
     console.log(isPopoverOpen);
+    const opts = {
+        height: '202', // 360 / 16 * 9
+        width: '360',
+        autoplay: 0,
+        playerVars: {
+            autoplay: 1,
+            wmode: 'transparent',
+        },
+    };
 
 
     return (
-        <div className="absolute top-10 left-1/2 transform -translate-x-1/2 z-40 mt-40 rounded border-4 shadow-xl"> {/* Ajusta los valores según tus necesidades */}
+        <div className="absolute top-10 left-1/2 transform -translate-x-1/2 z-20 mt-40 rounded border-4 shadow-xl"> {/* Ajusta los valores según tus necesidades */}
             <h2 className="mb-4 text-just uppercase text-2xl font-bold text-center" style={{ px: 4, background: 'linear-gradient(to right, #A50044, #0000A8)', color: '#ffffff', fontFamily: 'Jost', fontSize: '16px', fontWeight: 'bold' }}
             >Último directo</h2>
             <div className="relative pb-9/16">
-                <iframe
-                    width="560"
-                    height="315"
-                    src={`https://www.youtube.com/embed/${videoId}?wmode=transparent`}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                ></iframe>
+                {videoId && <YouTube videoId={videoId} opts={opts} />}
+
             </div>
         </div>
     );
