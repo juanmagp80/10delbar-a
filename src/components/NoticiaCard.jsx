@@ -1,46 +1,39 @@
+import { Button, Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 import React from 'react';
-import { Card, CardActionArea, CardContent, CardMedia, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+
 const NoticiaCard = ({ noticia }) => {
-    console.log(noticia);
     const defaultImageUrl = 'ruta/a/tu/imagen/por/defecto.jpg'; // Reemplaza esto con la ruta a tu imagen por defecto
-    const imageUrl = `{noticia.imagen}` || defaultImageUrl;
-    console.log("imagen", imageUrl);
-    const descripcionCorta = noticia.descripcion.substring(0, 100) + '...';
-    console.log(imageUrl)
+    const imageUrl = noticia.image || defaultImageUrl;
+    const descripcionCorta = noticia.text ? noticia.text.substring(0, 100) + '...' : 'Descripción no disponible';
 
     return (
         <div className="flex-1 p-2 mt-10">
-
             <Card style={{ width: '300px', height: '500px', margin: '20px' }}>
                 <CardActionArea style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                     <CardMedia
                         component="img"
-                        alt={noticia.titulo}
+                        alt={noticia.title}
                         height="200"
-                        image={noticia.imagen || defaultImageUrl}
-                        title={noticia.titulo}
-                        className='object-cover h-100'
-                        style={{ objectFit: 'cover', height: '200px' }} // Establece un tamaño fijo para las imágenes
-
+                        image={imageUrl}
+                        title={noticia.title}
+                        style={{ objectFit: 'cover', height: '200px' }}
                     />
-                    <CardContent className="bg-white" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flexGrow: 1 }}>
-                        <Typography gutterBottom variant="h5" component="h2" className="mb-2 text-sm">
-                            {noticia.titulo}
+                    <CardContent style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flexGrow: 1 }}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {noticia.title || 'Título no disponible'}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p" className="mb-2 text-xs">
+                        <Typography variant="body2" color="textSecondary" component="p">
                             {descripcionCorta}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p" className="mb-2 text-xs font-bold">
-                            {`Escrito por ${noticia.redactor}`}
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {`Escrito por ${noticia.author || 'Autor desconocido'}`}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p" className="text-xs">
-                            {new Date(noticia.fecha).toLocaleDateString()}
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {noticia.date ? new Date(noticia.date).toLocaleDateString() : 'Fecha no disponible'}
                         </Typography>
-                        <Link to={`/noticias/${noticia.id}`}>
-                            <Button variant="contained">
-                                Leer más
-                            </Button>
+                        <Link to={`/noticias/${noticia.id}`} style={{ marginTop: 'auto' }}>
+                            <Button variant="contained">Leer más</Button>
                         </Link>
                     </CardContent>
                 </CardActionArea>
@@ -49,26 +42,4 @@ const NoticiaCard = ({ noticia }) => {
     );
 };
 
-const NoticiasList = ({ noticias }) => {
-    if (!noticias) {
-        return null; // Otra acción si no hay noticias disponibles
-    }
-
-    return (
-
-        <div className="flex relative justify-center items-center p-5 bg-center bg-repeat bg-cover"
-            style={{ backgroundImage: 'url("/noticiasfondo.jpg")', height: '80%', zIndex: 2, width: '80%', margin: '0 auto', top: '350px', borderRadius: '15px', boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)' }}>
-            <div className="flex flex-col text-xl font-just justify-center items-center w-full h-full bg-transparent">
-                <img src="/barcelona-white.png" alt="Noticias" className="mr-2 w-32" /> {/* Asegúrate de reemplazar "/ruta/a/tu/imagen.jpg" con la ruta real a tu imagen */}
-                <h1 className="text-5xl font-just text-white ">Noticias</h1>
-                <div className="grid grid-cols-3 gap-4 w-full h-full justify-items-center align-items-center">
-                    {noticias.map(noticia => (
-                        <NoticiaCard key={noticia.id} noticia={noticia} />
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default NoticiasList;
+export default NoticiaCard;
