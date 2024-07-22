@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const NoticiaCard = ({ noticia }) => {
+    console.log('Noticia:', noticia);
     const defaultImageUrl = 'ruta/a/tu/imagen/por/defecto.jpg'; // Reemplaza esto con la ruta a tu imagen por defecto
     const imageUrl = noticia.image || defaultImageUrl;
     const descripcionCorta = noticia.text ? noticia.text.substring(0, 100) + '...' : 'Descripción no disponible';

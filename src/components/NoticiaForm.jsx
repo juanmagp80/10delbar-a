@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
 import axios from 'axios';
+import React, { useState } from 'react';
 
 const NoticiaForm = ({ closeModal }) => {
-    const [titulo, setTitulo] = useState('');
-    const [descripcion, setDescripcion] = useState('');
-    const [redactor, setRedactor] = useState('');
-    const [fecha, setFecha] = useState('');
-    const [imagen, setImagen] = useState('');
+    const [title, setTitle] = useState('');
+    const [text, setText] = useState('');
+    const [author, setAuthor] = useState('');
+    const [date, setDate] = useState('');
+    const [image, setImage] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const noticia = {
-            titulo,
-            descripcion,
-            redactor,
-            fecha,
-            imagen: imagen.file
+            title,
+            text,
+            author,
+            date,
+            image: image.file,
         };
+
         const formData = new FormData();
-        Object.keys(noticia).forEach(key => {
-            if (key === 'imagen') {
+        Object.keys(noticia).forEach((key) => {
+            if (key === 'image') {
                 formData.append('file', noticia[key]);
             } else {
                 formData.append(key, noticia[key]);
@@ -28,7 +29,7 @@ const NoticiaForm = ({ closeModal }) => {
         });
 
         try {
-            const response = await axios.post('https://basedatosbarca-8b9074e04ffa.herokuapp.com/noticias', formData, {
+            const response = await axios.post('https://barcanodeback-66fdb6714c03.herokuapp.com/news', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -42,89 +43,83 @@ const NoticiaForm = ({ closeModal }) => {
         }
     };
 
-    const handleImageUpload = event => {
+    const handleImageUpload = (event) => {
         const file = event.target.files[0];
         const url = URL.createObjectURL(file);
-        setImagen({ file, url });
+        setImage({ file, url });
 
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', 'your_upload_preset');
 
-        axios.post('https://api.cloudinary.com/v1_1/your_cloud_name/image/upload', formData)
-            .then(response => {
+        axios
+            .post('https://api.cloudinary.com/v1_1/your_cloud_name/image/upload', formData)
+            .then((response) => {
                 if (response.data.secure_url) {
-                    setImagen(response.data.secure_url);
+                    setImage(response.data.secure_url);
                     console.log(response.data.secure_url);
                 }
             })
-            .catch(error => console.error(error));
+            .catch((error) => console.error(error));
     };
-
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label htmlFor="titulo" className="block text-sm font-medium text-gray-700">Título</label>
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700">Título</label>
                 <input
                     type="text"
-                    id="titulo"
-                    value={titulo}
-                    onChange={(e) => setTitulo(e.target.value)}
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
             </div>
             <div>
-                <label htmlFor="descripcion" className="block text-sm font-medium text-gray-700">Descripción</label>
+                <label htmlFor="text" className="block text-sm font-medium text-gray-700">Descripción</label>
                 <textarea
-                    id="descripcion"
-                    value={descripcion}
-                    onChange={(e) => setDescripcion(e.target.value)}
+                    id="text"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
                     className="mt-1 block w-full h-48 py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
             </div>
             <div>
-                <label htmlFor="redactor" className="block text-sm font-medium text-gray-700">Redactor</label>
+                <label htmlFor="author" className="block text-sm font-medium text-gray-700">Redactor</label>
                 <input
                     type="text"
-                    id="redactor"
-                    value={redactor}
-                    onChange={(e) => {
-                        console.log("redactr", e.target.value)
-
-                        setRedactor(e.target.value)
-
-                    }
-                    }
+                    id="author"
+                    value={author}
+                    onChange={(e) => setAuthor(e.target.value)}
                     className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
             </div>
             <div>
-                <label htmlFor="fecha" className="block text-sm font-medium text-gray-700">Fecha</label>
+                <label htmlFor="date" className="block text-sm font-medium text-gray-700">Fecha</label>
                 <input
                     type="date"
-                    id="fecha"
-                    value={fecha}
-                    onChange={(e) => setFecha(e.target.value)}
+                    id="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                     className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
             </div>
             <div>
-                <label htmlFor="imagen" className="block text-sm font-medium text-gray-700">Imagen URL</label>
+                <label htmlFor="image" className="block text-sm font-medium text-gray-700">Imagen URL</label>
                 <input
                     type="text"
-                    id="imagen"
-                    value={imagen}
-                    onChange={(e) => setImagen(e.target.value)}
+                    id="image"
+                    value={image.url} // Cambiado a image.url
+                    onChange={(e) => setImage({ ...image, url: e.target.value })}
                     className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
-                <input type="file" name="imagen" accept="image/*" onChange={handleImageUpload} />
+                <input type="file" name="image" accept="image/*" onChange={handleImageUpload} />
             </div>
             <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Añadir Noticia
             </button>
         </form>
     );
-}
+};
 
 export default NoticiaForm;
